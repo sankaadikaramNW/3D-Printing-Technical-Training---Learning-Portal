@@ -60,7 +60,7 @@ class GalleryAdminController extends Controller
     public function delete(string $id): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf()) {
+        if ($this->request->isPost() && !$this->validateCsrf()) {
             $this->redirect('admin/gallery');
             return;
         }

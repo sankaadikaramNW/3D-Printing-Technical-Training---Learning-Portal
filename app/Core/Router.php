@@ -18,6 +18,19 @@ class Router
         $this->addRoute('POST', $path, $handler);
     }
 
+    public function any(string $path, $handler): void
+    {
+        $this->addRoute('GET', $path, $handler);
+        $this->addRoute('POST', $path, $handler);
+    }
+
+    public function match(array $methods, string $path, $handler): void
+    {
+        foreach ($methods as $method) {
+            $this->addRoute($method, $path, $handler);
+        }
+    }
+
     public function addRoute(string $method, string $path, $handler): void
     {
         $normalizedPath = '/' . trim($path, '/');

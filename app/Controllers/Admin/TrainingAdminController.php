@@ -119,7 +119,7 @@ class TrainingAdminController extends Controller
     public function deleteModule(string $id): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf()) {
+        if ($this->request->isPost() && !$this->validateCsrf()) {
             $this->redirect('admin/training');
             return;
         }
@@ -242,7 +242,7 @@ class TrainingAdminController extends Controller
     public function deleteLesson(string $id): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf()) {
+        if ($this->request->isPost() && !$this->validateCsrf()) {
             $this->redirect('admin/training');
             return;
         }

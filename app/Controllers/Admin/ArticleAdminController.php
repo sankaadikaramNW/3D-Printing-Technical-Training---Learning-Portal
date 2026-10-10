@@ -139,7 +139,7 @@ class ArticleAdminController extends Controller
     public function delete(string $id): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf()) {
+        if ($this->request->isPost() && !$this->validateCsrf()) {
             $this->redirect('admin/articles');
             return;
         }
@@ -150,6 +150,8 @@ class ArticleAdminController extends Controller
             $articleModel->delete((int)$id);
             Logger::log('delete', 'articles', (int)$id, "Deleted article: {$article['title']}");
             $this->setFlash('success', 'Article deleted successfully.');
+        } else {
+            $this->setFlash('error', 'Article not found.');
         }
 
         $this->redirect('admin/articles');

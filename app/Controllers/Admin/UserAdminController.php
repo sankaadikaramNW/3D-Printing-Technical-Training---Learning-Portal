@@ -156,7 +156,7 @@ class UserAdminController extends Controller
     {
         $this->requireAuth();
         $this->requireRole('super-admin');
-        if (!$this->validateCsrf()) {
+        if ($this->request->isPost() && !$this->validateCsrf()) {
             $this->redirect('admin/users');
             return;
         }
